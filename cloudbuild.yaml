@@ -1,0 +1,16 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$civic-reserve-451023-g4/sample-app', '.']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$civic-reserve-451023-g4/sample-app']
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['run', 'deploy', 'sample-app',
+         '--image', 'gcr.io/$civic-reserve-451023-g4/sample-app',
+         '--platform', 'managed',
+         '--region', 'us-central1',
+         '--allow-unauthenticated']
+
+images:
+- 'gcr.io/$civic-reserve-451023-g4/sample-app'
